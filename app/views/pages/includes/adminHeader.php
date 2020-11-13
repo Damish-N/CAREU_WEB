@@ -6,6 +6,6 @@
   		<div id="navbar-right">
     		<a class="" href="home">HOME</a>
     		<!-- <a href="profile">PROFILE</a> -->
-    		<a href="../../careu-web">LOG OUT</a>
+    		<a href="../../CAREU_WEB">LOG OUT</a>
   		</div>
 	</nav>

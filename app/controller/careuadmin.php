@@ -67,7 +67,7 @@ class careuadmin extends Controller
         $userName=$_SESSION['userName'];
         $imageName=$_FILES['image']['name'];
         $tempName=$_FILES['image']['tmp_name'];
-        $result=$this-userModel->updateProPic($userName,$imageName,$tempName);
+        $result=$this->userModel->updateProPic($userName,$imageName,$tempName);
 
         if($result)
         {
