@@ -1,4 +1,5 @@
 <IfModule mod_rewrite.c>
+  Options -Indexes
   Options -Multiviews
   RewriteEngine On
   RewriteBase /CAREU_WEB/public
