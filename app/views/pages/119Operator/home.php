@@ -9,8 +9,10 @@
 	<title>Home</title>
 </head>
 <body>
-	<div class="breadcrum">
-		Home
+	<div class="breadcrum" id="breadcrum">
+		<ul class="breadcrumb">
+  			<li>Home</li>
+		</ul>
 	</div>
 	<div class="form">
 		<center>
@@ -31,7 +33,6 @@
 		</center>
 	</div>
 	<script type="text/javascript" src="../javascript/jquery.js"></script>
-	<script type="text/javascript" src="../javascript/jquery.sticky.js"></script>
 	<script type="text/javascript" src="../javascript/headerPolice.js"></script>
 </body>
 </html>

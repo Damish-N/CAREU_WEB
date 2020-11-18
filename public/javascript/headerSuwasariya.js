@@ -7,6 +7,11 @@ $(document).ready(function() {
         } else {
             document.getElementById("navbar").style.top = "-400px";
         }
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("breadcrum").style.top = "112px";
+        } else {
+            document.getElementById("breadcrum").style.top = "-400px";
+        }
         prevScrollpos = currentScrollPos;
     }
     var i = 0;
@@ -24,5 +29,5 @@ $(document).ready(function() {
             document.getElementById("service").innerHTML = "";
             i = 0;
         }
-    }, 3099);
+    }, 4099);
 });

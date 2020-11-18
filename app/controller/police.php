@@ -77,7 +77,7 @@ class police extends Controller
         $result=$this->userModel->updateProfile($firstName,$lastName,$userName,$password,$imageName,$tmpName);
         if($result)
         {
-            header("Location: http://localhost:8080/careu-web/careuadmin/profile");
+            header("Location: http://localhost:8080/careu-web/police/profile");
         }
         else
         {
@@ -90,6 +90,16 @@ class police extends Controller
         $this->view('pages/includes/1990OperatorHeader');
         $this->view('pages/1990Operator/reports');
         $this->view('pages/includes/footer');
+    }
+
+    public function getrecent()
+    {
+        $requestsInfo=$this->userModel->getRecentRequests();
+        $data = ['requestsInfo' => $requestsInfo];
+        if($requestsInfo)
+        {
+            $this->view('pages/1990Operator/request',$data);
+        }
     }
 }
 
