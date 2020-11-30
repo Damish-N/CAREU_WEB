@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="../css/119Operator/home.css">
 	<link rel="stylesheet" type="text/css" href="../css/includecss/operatorHeader.css">
 	<link rel="stylesheet" type="text/css" href="../css/includecss/footer.css">
+	<link rel="stylesheet" type="text/css" href="../css/includecss/sidebar.css">
+	<link rel="stylesheet" type="text/css" href="../css/includecss/breadcrumb.css">
 	<title>Home</title>
 </head>
 <body>
@@ -27,12 +29,10 @@
 		  			<a href="profile" type="submit" class="profile"><p>Edit Profile</p><img src="../img/homeicons/profile.svg"/></a>
 				</div>
 		  		<div class="column">
-		  			<a href="reports" type="submit" class="report"><p>Generate Reports</p><img src="../img/homeicons/reports.svg"/></a>
+		  			<a href="reports" type="submit" class="report"><p>Reports</p><img src="../img/homeicons/reports.svg"/></a>
 		  		</div>
 			</div>
 		</center>
 	</div>
-	<script type="text/javascript" src="../javascript/jquery.js"></script>
-	<script type="text/javascript" src="../javascript/headerPolice.js"></script>
 </body>
 </html>

@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="../css/1990Operator/editProfileOperator1990.css">
 	<link rel="stylesheet" type="text/css" href="../css/includecss/operatorHeader.css">
 	<link rel="stylesheet" type="text/css" href="../css/includecss/footer.css">
+	<link rel="stylesheet" type="text/css" href="../css/includecss/sidebar.css">
+	<link rel="stylesheet" type="text/css" href="../css/includecss/breadcrumb.css">
 	<title>Edit Profile</title>
 </head>
 <body>
@@ -20,8 +22,11 @@
 			<center>
 				<div class="row">
 					<form action="updateprofile" method="post" enctype="multipart/form-data">
+						<?php foreach($data['operatorInfo'] as $operatorInfo){ ?>
+						<div class="namediv">
+							<h1><?php echo $operatorInfo->firstName." ".$operatorInfo->lastName; ?></h1>
+						</div>
 						<div class="column1">
-							<?php foreach($data['admin'] as $operatorInfo){ ?>
 							<?php if(!empty($operatorInfo->image)) { ?>
 								<img src="../img/suwasariyaProPics/<?php echo $operatorInfo->image; ?>" class="pPic" id="pPic"><br>
 							<?php } else {?>
@@ -31,32 +36,65 @@
 							<input type="file" name="image" id="propic"><br>
 						</div>
 						<div class="column2">
-							<label for="firstName">First Name</label><br>
-							<label for="lastName">Last Name</label><br>
-							<label for="password1">Password</label><br>
-							<label for="password2">Re-enter Password</label><br>
+							<label>First Name</label>
+							<input type="text" name="firstName" id="firstName" value="<?php echo $operatorInfo->firstName ?>"><br>
 						</div>
 						<div class="column3">
-							<label class="lab" for="firstName">First Name</label>
-							<input type="text" name="firstName" id="firstName" value="<?php echo $operatorInfo->firstName ?>"><br>
-							<label class="lab" for="lastName">Last Name</label>
+							<label>Last Name</label>
 							<input type="text" name="lastName" id="lastName" value="<?php echo $operatorInfo->lastName ?>"><br>
-							<label class="lab" for="password1">Password</label>
-							<input type="password" name="password1" id="password1"value="<?php echo $operatorInfo->password ?>"><br>
-							<label class="lab" for="password2">Re-enter Password</label>
-							<input type="password" name="password2" id="password2" value="<?php echo $operatorInfo->password ?>"><br>
-							<?php } ?>
+						</div>
+						<div class="column4">
 							<p class="hide" id="err">Error</p>
+							<a href="changePassword" class="cpwd">Change Password ››</a>
+						</div>
+						<div class="column5">
 							<input type="submit" value="Save" name="submit" id="submit" onclick="return check()">
 						</div>
+						<?php } ?>
 					</form>	
 				</div>
 			</center>
 		</div>
 	</div>
+	<div id="modal1" class="modal">
+		<div class="message">
+			<div class="container">
+				<div class="titleconfirm">
+					<h1>Success!</h1>
+				</div>
+				<div class="confirm">
+					<img src="../img/modelicons/success.svg" alt="">
+					<p>Changes Saved!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="modal2" class="modal">
+		<div class="message">
+			<div class="container">
+				<div class="titleconfirm">
+					<h1>Success!</h1>
+				</div>
+				<div class="confirm">
+					<img src="../img/modelicons/success.svg" alt="">
+					<p>Password Changed!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php if(isset($_SESSION['profile'])){?>
+		<script>
+			document.getElementById('modal1').style.display = 'block';
+			setTimeout(function(){document.getElementById('modal1').style.display = 'none'; }, 2000);
+		</script>
+	<?php unset($_SESSION['profile']);} ?>
+	<?php if(isset($_SESSION['changeapplied'])){?>
+		<script>
+			document.getElementById('modal2').style.display = 'block';
+			setTimeout(function(){document.getElementById('modal2').style.display = 'none'; }, 2000);
+		</script>
+	<?php unset($_SESSION['changeapplied']);} ?>
 	<script type="text/javascript" src="../javascript/jquery.js"></script>
-	<script type="text/javascript" src="../javascript/jquery.sticky.js"></script>
-	<script type="text/javascript" src="../javascript/headerSuwasariya.js"></script>
 	<script type="text/javascript" src="../javascript/editProfileOperator1990.js"></script>
 </body>
 </html>

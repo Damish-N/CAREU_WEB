@@ -21,6 +21,7 @@ class careuadmin extends Controller
     public function home()
     {
         $this->view('pages/includes/adminheader');
+        $this->view('pages/admin/adminSidebar');
         $this->view('pages/admin/home');
         $this->view('pages/includes/footer');
     }
@@ -28,6 +29,7 @@ class careuadmin extends Controller
     public function new119()
     {
         $this->view('pages/includes/adminheader');
+        $this->view('pages/admin/adminSidebar');
         $this->view('pages/admin/create119OperatorAccount');
         $this->view('pages/includes/footer');
     }
@@ -35,6 +37,7 @@ class careuadmin extends Controller
     public function new1990()
     {
         $this->view('pages/includes/adminheader');
+        $this->view('pages/admin/adminSidebar');
         $this->view('pages/admin/create1990OperatorAccount');
         $this->view('pages/includes/footer');
     }
@@ -47,6 +50,7 @@ class careuadmin extends Controller
         if($adminInfo)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/editProfileAdmin',$data);
             $this->view('pages/includes/footer');
         }
@@ -57,13 +61,47 @@ class careuadmin extends Controller
         $userName=$_SESSION['userName'];
         $firstName=$_POST['firstName'];
         $lastName=$_POST['lastName'];
-        $password=$_POST['password1'];
         $imageName=$_FILES['image']['name'];
         $tmpName=$_FILES['image']['tmp_name'];
-        $result=$this->userModel->updateProfile($firstName,$lastName,$userName,$password,$imageName,$tmpName);
+        $result=$this->userModel->updateProfile($firstName,$lastName,$userName,$imageName,$tmpName);
         if($result)
         {
+            $_SESSION['profile']=$userName;
             header("Location: http://localhost:8080/careu-web/careuadmin/profile");
+        }
+        else
+        {
+            $_SESSION['update']="failed";
+            header("Location: http://localhost:8080/careu-web/careuadmin/profile");
+        }
+    }
+
+    public function changePassword()
+    {
+        $this->view('pages/includes/adminheader');
+        $this->view('pages/admin/adminSidebar');
+        $this->view('pages/admin/changePassword');
+        $this->view('pages/includes/footer');
+    }
+
+    public function passwordchange()
+    {
+        $userName=$_POST['username'];
+        $currentpassword=md5($_POST['currentpassword']);
+        $password=md5($_POST['password1']);
+        
+        if($userName==$_SESSION['userName'])
+        {
+            $result=$this->userModel->changePassword($userName,$currentpassword,$password);
+            if($result)
+            {
+                $_SESSION['changeapplied']="success";
+                echo "success";
+            }
+            else
+            {
+               echo "failed";
+            }
         }
         else
         {
@@ -75,6 +113,7 @@ class careuadmin extends Controller
     public function usermanagement()
     {
         $this->view('pages/includes/adminheader');
+        $this->view('pages/admin/adminSidebar');
         $this->view('pages/admin/userManagement');
         $this->view('pages/includes/footer');
     }
@@ -103,12 +142,25 @@ class careuadmin extends Controller
     {
         $userId=$_GET['id'];
         $user=$this->userModel->getUser($userId);
-        $data = ['userInfo' => $user];
+        $id=$this->userModel->getId($userId);
+        $data = ['userInfo' => $user,'idphoto'=>$id];
         if($user)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/viewUserRequest',$data);
             $this->view('pages/includes/footer'); 
+        }
+    }
+
+    public function block()
+    {
+        $userId=$_GET['id'];
+        $result=$this->userModel->blockUser($userId);
+        if($result)
+        {
+            $_SESSION['blockuser']=$userId;
+            header("Location: http://localhost:8080/careu-web/careuadmin/usermanagement");
         }
     }
 
@@ -120,8 +172,43 @@ class careuadmin extends Controller
         if($user)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/userProfile',$data);
             $this->view('pages/includes/footer'); 
+        }
+    }
+
+    public function operators()
+    {
+        $operators119=$this->userModel->getOperator119();
+        $operators1990=$this->userModel->getOperator1990();
+        $data = ['operatorInfo119' => $operators119,'operatorInfo1990' => $operators1990];
+        if(isset($data))
+        {
+            $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
+            $this->view('pages/admin/operators',$data);
+            $this->view('pages/includes/footer'); 
+        }
+    }
+
+    public function romoveoperator119()
+    {
+        $result=$this->userModel->removeOperator119($_GET['id']);
+        if($result)
+        {
+            $_SESSION['operators']="success";
+            header("Location: http://localhost:8080/careu-web/careuadmin/operators");
+        }
+    }
+
+    public function romoveoperator1990()
+    {
+        $result=$this->userModel->removeOperator1990($_GET['id']);
+        if($result)
+        {
+            $_SESSION['operators']="success";
+            header("Location: http://localhost:8080/careu-web/careuadmin/operators");
         }
     }
 
@@ -133,6 +220,7 @@ class careuadmin extends Controller
         if($requestInfo)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/viewUserRequest',$data);
             $this->view('pages/includes/footer'); 
         }
@@ -144,6 +232,7 @@ class careuadmin extends Controller
         $result=$this->userModel->rejectRequest($userId);
         if($result)
         {
+            $_SESSION['rejectuser']=$userId;
             header("Location: http://localhost:8080/careu-web/careuadmin/usermanagement");
         }
     }
@@ -154,6 +243,7 @@ class careuadmin extends Controller
         $result=$this->userModel->acceptRequest($userId);
         if($result)
         {
+            $_SESSION['acceptuser']=$userId;
             header("Location: http://localhost:8080/careu-web/careuadmin/usermanagement");
         }
     }
@@ -161,6 +251,7 @@ class careuadmin extends Controller
     public function reports()
     {
         $this->view('pages/includes/adminheader');
+        $this->view('pages/admin/adminSidebar');
         $this->view('pages/admin/reports');
         $this->view('pages/includes/footer');
     }
@@ -171,12 +262,13 @@ class careuadmin extends Controller
         $firstName=$_POST['firstName'];
         $lastName=$_POST['lastName'];
         $gender=$_POST['gender'];
-        $password=$_POST['password1'];
+        $password=md5($_POST['password1']);
         $result=$this->userModel->createOperator119($userName,$firstName,$lastName,$gender,$password);
 
         if($result)
         {
-            header("Location: http://localhost:8080/careu-web/careuadmin/home");
+            $_SESSION['user']=$userName;
+            header("Location: http://localhost:8080/careu-web/careuadmin/new119");
         }
         else
         {
@@ -190,12 +282,13 @@ class careuadmin extends Controller
         $firstName=$_POST['firstName'];
         $lastName=$_POST['lastName'];
         $gender=$_POST['gender'];
-        $password=$_POST['password1'];
+        $password=md5($_POST['password1']);
         $result=$this->userModel->createOperator1990($userName,$firstName,$lastName,$gender,$password);
 
         if($result)
         {
-            header("Location: http://localhost:8080/careu-web/careuadmin/home");
+            $_SESSION['user']=$userName;
+            header("Location: http://localhost:8080/careu-web/careuadmin/new1990");
         }
         else
         {
@@ -206,6 +299,7 @@ class careuadmin extends Controller
     public function firstaids()
     {
         $this->view('pages/includes/adminheader');
+        $this->view('pages/admin/adminSidebar');
         $this->view('pages/admin/addInstructions');
         $this->view('pages/includes/footer');
     }
@@ -224,6 +318,7 @@ class careuadmin extends Controller
         if($instructions)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/cardiacInstructions',$data);
             $this->view('pages/includes/footer');
         }
@@ -238,6 +333,7 @@ class careuadmin extends Controller
         $result=$this->userModel->addCardiac($stepNumber,$description,$imageName,$tmpName);
         if($result)
         {
+            $_SESSION['newinstruction']=$stepNumber;
             header("Location: http://localhost:8080/careu-web/careuadmin/cardiac");
         }
     }
@@ -248,6 +344,7 @@ class careuadmin extends Controller
         $result=$this->userModel->deleteCardiac($id);
         if($result)
         {
+            $_SESSION['deleteinstruction']=$id;
             header("Location: http://localhost:8080/careu-web/careuadmin/cardiac");
         }
     }
@@ -260,6 +357,7 @@ class careuadmin extends Controller
         if($instruction)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/editCardiacInstructions',$data);
             $this->view('pages/includes/footer');
         }
@@ -275,6 +373,7 @@ class careuadmin extends Controller
         $result=$this->userModel->saveCardiac($id,$stepNumber,$description,$imageName,$tmpName);
         if($result)
         {
+            $_SESSION['instruction']=$id;
             header("Location: http://localhost:8080/careu-web/careuadmin/cardiac");
         }
     }
@@ -288,6 +387,7 @@ class careuadmin extends Controller
         if($instructions)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/bleedingInstructions',$data);
             $this->view('pages/includes/footer');
         }
@@ -302,6 +402,7 @@ class careuadmin extends Controller
         $result=$this->userModel->addBleeding($stepNumber,$description,$imageName,$tmpName);
         if($result)
         {
+            $_SESSION['newinstruction']=$stepNumber;
             header("Location: http://localhost:8080/careu-web/careuadmin/bleeding");
         }
     }
@@ -312,6 +413,7 @@ class careuadmin extends Controller
         $result=$this->userModel->deleteBleeding($id);
         if($result)
         {
+            $_SESSION['deleteinstruction']=$id;
             header("Location: http://localhost:8080/careu-web/careuadmin/bleeding");
         }
     }
@@ -324,6 +426,7 @@ class careuadmin extends Controller
         if($instruction)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/editBleedingInstructions',$data);
             $this->view('pages/includes/footer');
         }
@@ -339,6 +442,7 @@ class careuadmin extends Controller
         $result=$this->userModel->saveBleeding($id,$stepNumber,$description,$imageName,$tmpName);
         if($result)
         {
+            $_SESSION['instruction']=$id;
             header("Location: http://localhost:8080/careu-web/careuadmin/bleeding");
         }
     }
@@ -350,6 +454,7 @@ class careuadmin extends Controller
         if($instructions)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/burnsInstructions',$data);
             $this->view('pages/includes/footer');
         }
@@ -364,6 +469,7 @@ class careuadmin extends Controller
         $result=$this->userModel->addBurn($stepNumber,$description,$imageName,$tmpName);
         if($result)
         {
+            $_SESSION['newinstruction']=$stepNumber;
             header("Location: http://localhost:8080/careu-web/careuadmin/burn");
         }
     }
@@ -374,6 +480,7 @@ class careuadmin extends Controller
         $result=$this->userModel->deleteBurn($id);
         if($result)
         {
+            $_SESSION['deleteinstruction']=$id;
             header("Location: http://localhost:8080/careu-web/careuadmin/burn");
         }
     }
@@ -386,6 +493,7 @@ class careuadmin extends Controller
         if($instruction)
         {
             $this->view('pages/includes/adminheader');
+            $this->view('pages/admin/adminSidebar');
             $this->view('pages/admin/editBurnsInstructions',$data);
             $this->view('pages/includes/footer');
         }
@@ -401,6 +509,7 @@ class careuadmin extends Controller
         $result=$this->userModel->saveBurn($id,$stepNumber,$description,$imageName,$tmpName);
         if($result)
         {
+            $_SESSION['instruction']=$id;
             header("Location: http://localhost:8080/careu-web/careuadmin/burn");
         }
     }
