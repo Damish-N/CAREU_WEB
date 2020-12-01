@@ -14,7 +14,7 @@ class police extends Controller
         if(isset($_SESSION))
         {
             session_destroy();
-            header("Location: http://localhost:8080/careu-web");
+            header("Location: http://localhost/careu-web");
         }
     }
 
@@ -83,12 +83,12 @@ class police extends Controller
         if($result)
         {
             $_SESSION['profile']=$userName;
-            header("Location: http://localhost:8080/careu-web/police/profile");
+            header("Location: http://localhost/careu-web/police/profile");
         }
         else
         {
             $_SESSION['update']="failed";
-            header("Location: http://localhost:8080/careu-web/police/profile");
+            header("Location: http://localhost/careu-web/police/profile");
         }
     }
 

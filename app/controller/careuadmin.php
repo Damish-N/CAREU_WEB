@@ -14,7 +14,7 @@ class careuadmin extends Controller
         if(isset($_SESSION))
         {
             session_destroy();
-            header("Location: http://localhost:8080/careu-web");
+            header("Location: http://localhost/careu-web");
         }
     }
 
@@ -67,12 +67,12 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['profile']=$userName;
-            header("Location: http://localhost:8080/careu-web/careuadmin/profile");
+            header("Location: http://localhost/careu-web/careuadmin/profile");
         }
         else
         {
             $_SESSION['update']="failed";
-            header("Location: http://localhost:8080/careu-web/careuadmin/profile");
+            header("Location: http://localhost/careu-web/careuadmin/profile");
         }
     }
 
@@ -160,7 +160,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['blockuser']=$userId;
-            header("Location: http://localhost:8080/careu-web/careuadmin/usermanagement");
+            header("Location: http://localhost/careu-web/careuadmin/usermanagement");
         }
     }
 
@@ -198,7 +198,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['operators']="success";
-            header("Location: http://localhost:8080/careu-web/careuadmin/operators");
+            header("Location: http://localhost/careu-web/careuadmin/operators");
         }
     }
 
@@ -208,7 +208,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['operators']="success";
-            header("Location: http://localhost:8080/careu-web/careuadmin/operators");
+            header("Location: http://localhost/careu-web/careuadmin/operators");
         }
     }
 
@@ -233,7 +233,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['rejectuser']=$userId;
-            header("Location: http://localhost:8080/careu-web/careuadmin/usermanagement");
+            header("Location: http://localhost/careu-web/careuadmin/usermanagement");
         }
     }
 
@@ -244,7 +244,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['acceptuser']=$userId;
-            header("Location: http://localhost:8080/careu-web/careuadmin/usermanagement");
+            header("Location: http://localhost/careu-web/careuadmin/usermanagement");
         }
     }
 
@@ -268,7 +268,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['user']=$userName;
-            header("Location: http://localhost:8080/careu-web/careuadmin/new119");
+            header("Location: http://localhost/careu-web/careuadmin/new119");
         }
         else
         {
@@ -288,7 +288,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['user']=$userName;
-            header("Location: http://localhost:8080/careu-web/careuadmin/new1990");
+            header("Location: http://localhost/careu-web/careuadmin/new1990");
         }
         else
         {
@@ -334,7 +334,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['newinstruction']=$stepNumber;
-            header("Location: http://localhost:8080/careu-web/careuadmin/cardiac");
+            header("Location: http://localhost/careu-web/careuadmin/cardiac");
         }
     }
 
@@ -345,7 +345,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['deleteinstruction']=$id;
-            header("Location: http://localhost:8080/careu-web/careuadmin/cardiac");
+            header("Location: http://localhost/careu-web/careuadmin/cardiac");
         }
     }
 
@@ -374,7 +374,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['instruction']=$id;
-            header("Location: http://localhost:8080/careu-web/careuadmin/cardiac");
+            header("Location: http://localhost/careu-web/careuadmin/cardiac");
         }
     }
 
@@ -403,7 +403,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['newinstruction']=$stepNumber;
-            header("Location: http://localhost:8080/careu-web/careuadmin/bleeding");
+            header("Location: http://localhost/careu-web/careuadmin/bleeding");
         }
     }
 
@@ -414,7 +414,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['deleteinstruction']=$id;
-            header("Location: http://localhost:8080/careu-web/careuadmin/bleeding");
+            header("Location: http://localhost/careu-web/careuadmin/bleeding");
         }
     }
 
@@ -443,7 +443,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['instruction']=$id;
-            header("Location: http://localhost:8080/careu-web/careuadmin/bleeding");
+            header("Location: http://localhost/careu-web/careuadmin/bleeding");
         }
     }
 
@@ -470,7 +470,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['newinstruction']=$stepNumber;
-            header("Location: http://localhost:8080/careu-web/careuadmin/burn");
+            header("Location: http://localhost/careu-web/careuadmin/burn");
         }
     }
 
@@ -481,7 +481,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['deleteinstruction']=$id;
-            header("Location: http://localhost:8080/careu-web/careuadmin/burn");
+            header("Location: http://localhost/careu-web/careuadmin/burn");
         }
     }
 
@@ -510,7 +510,7 @@ class careuadmin extends Controller
         if($result)
         {
             $_SESSION['instruction']=$id;
-            header("Location: http://localhost:8080/careu-web/careuadmin/burn");
+            header("Location: http://localhost/careu-web/careuadmin/burn");
         }
     }
 
